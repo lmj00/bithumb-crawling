@@ -6,6 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +19,12 @@ public class Test {
         doc = Jsoup.connect(URL).get();
 
         List<String> coinList_KRW = new ArrayList<>();
-        List<Double> real_KRW = new ArrayList<>();
+        List<BigDecimal> real_KRW = new ArrayList<>();
         List<String> assetRealPrice_KRW = new ArrayList<>();
         List<String> assetRealRate_KRW = new ArrayList<>();
         List<Long> assetRealPrice2_KRW = new ArrayList<>();
         List<String> assetTotalPrice_KRW = new ArrayList<>();
+
 
         // small 이름
         Elements smallTxt = doc.select("#sise_list > tbody > tr > td > div > p > a > span");
@@ -40,8 +43,10 @@ public class Test {
                         .text().replace("신규 공시", ""));
 
                 // real_KRW, 가격, 원 제거하고 추가
-                real_KRW.add(Double.valueOf(doc.select("#sise_list > tbody > tr:nth-child(" + i + ") > td:nth-child(2) > div")
-                        .text().replace(",", "").replace(" 원", "")));
+                BigDecimal big = new BigDecimal(doc.select("#sise_list > tbody > tr:nth-child(" + i + ") > td:nth-child(2) > div")
+                        .text().replace(",", "").replace(" 원", ""));
+                real_KRW.add(big);
+
 
                 // 변동 가격
                 assetRealPrice_KRW.add(doc.select("#assetRealPrice" + t.substring(0, t.indexOf("/")) + "_KRW")
