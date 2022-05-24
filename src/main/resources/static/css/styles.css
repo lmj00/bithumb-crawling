@@ -14,10 +14,10 @@ table {
     font-family: 'Spoqa Han Sans Neo',Roboto,"Noto Sans KR",Arial,"Malgun Gothic",sans-serif;
 }
 
-#upRate {
+#upRate > span{
     color: #f75467;
 }
 
-#downRate {
+#downRate > span{
     color: #4386f9;
 }
