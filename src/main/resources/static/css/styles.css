@@ -21,3 +21,15 @@ table {
 #downRate > span{
     color: #4386f9;
 }
+
+.cus-m {
+    margin-left: 8%;
+}
+
+.cus-in {
+    color: #f75467;
+}
+
+.cus-de {
+    color: #4386f9
+}
