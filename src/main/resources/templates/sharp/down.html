@@ -20,25 +20,25 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                         자산
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                         실시간 시세
                                     </th>
-                                    <th class="text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                         변동 가격
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                         변동률
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                         거래금액(24H)
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                         시가총액
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                         하락률
                                     </th>
 
@@ -47,31 +47,31 @@
                                 <tbody>
                                 <tr th:each="coin, i : ${coins}">
                                     <td class="align-middles">
-                                        <span class="text-secondary text-xs font-weight-bold"
+                                        <span class="text-dark font-weight-bold"
                                               th:text="${coin.name}"></span>
                                     </td>
                                     <td class="align-middle">
-                                        <span class="text-secondary text-xs font-weight-bold"
+                                        <span class="text-dark font-weight-bold"
                                               th:text="${coin.realkrw + ' 원'}"></span>
                                     </td>
                                     <td>
-                                        <span class="text-secondary text-xs font-weight-bold"
+                                        <span class="text-dark font-weight-bold"
                                               th:text="${coin.realPrice} + ' 원'"></span>
                                     </td>
                                     <td class="align-middle">
-                                        <span class="text-secondary text-xs font-weight-bold"
+                                        <span class="text-dark font-weight-bold"
                                               th:text="${coin.realRate} + ' %'"></span>
                                     </td>
                                     <td class="align-middle">
-                                        <span class="text-secondary text-xs font-weight-bold"
+                                        <span class="text-dark font-weight-bold"
                                               th:text="${#numbers.formatInteger(coin.tradePrice, 0, 'COMMA')} + '원'"></span>
                                     </td>
                                     <td class="align-middle">
-                                        <span class="text-secondary text-xs font-weight-bold"
+                                        <span class="text-dark font-weight-bold"
                                               th:text="${#numbers.formatInteger(coin.totalPrice, 0, 'COMMA')} + '원'"></span>
                                     </td>
                                     <td class="align-middle" id="downRate">
-                                        <span class="text-xs font-weight-bold"
+                                        <span class="font-weight-bold"
                                               th:text="'-' + ${#numbers.formatDecimal(decrease[i.index], 0, 2)} + '%'"></span>
                                     </td>
 
