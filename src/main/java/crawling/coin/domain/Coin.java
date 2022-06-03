@@ -20,6 +20,7 @@ public class Coin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String smallName;
     private String name;
     @Column(name = "real_krw")
     private BigDecimal realkrw;
