@@ -25,6 +25,7 @@ public class CoinParsingService {
         String URL = "https://www.bithumb.com/";
         doc = Jsoup.connect(URL).get();
 
+        List<String> coinSmall_KRW = new ArrayList<>();
         List<String> coinList_KRW = new ArrayList<>();
         List<BigDecimal> real_KRW = new ArrayList<>();
         List<Float> assetRealPrice_KRW = new ArrayList<>();
@@ -44,6 +45,9 @@ public class CoinParsingService {
 
             if (ele.text().substring(ele.text().length() - 3).contains("KRW")) {
 
+                // small
+                coinSmall_KRW.add(ele.text().split("/")[0]);
+
                 // krw
                 String t = ele.text(); // small_txt
 
@@ -54,6 +58,7 @@ public class CoinParsingService {
                 // real_KRW
                 BigDecimal big = new BigDecimal(doc.select("#sise_list > tbody > tr:nth-child(" + i + ") > td:nth-child(2) > div")
                         .text().replace(",", "").replace(" 원", ""));
+//                System.out.println(big);
                 real_KRW.add(big);
 
 
@@ -76,6 +81,6 @@ public class CoinParsingService {
             }
         }
 
-        coinSaveService.save(coinList_KRW, real_KRW, assetRealPrice_KRW, assetRealRate_KRW, tradePrice_KRW, assetTotalPrice_KRW);
+        coinSaveService.save(coinSmall_KRW, coinList_KRW, real_KRW, assetRealPrice_KRW, assetRealRate_KRW, tradePrice_KRW, assetTotalPrice_KRW);
     }
 }
