@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<!--<meta http-equiv="refresh" content="30">-->
+
+<body class="g-sidenav-show  bg-gray-200">
+<aside th:replace="fragments/aside:: aside"/>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+         navbar-scroll="true">
+        <div class="container-fluid py-1 px-3"></div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h5 class="text-white text-center">상승 변동률 TOP5</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 p-4">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="row cus-row">
+                                    <th:block th:each="increase : ${increaseRates}">
+                                        <div class="col-md-6 col-6 cus-m">
+                                            <div class="card">
+                                                <a th:href="@{https://www.bithumb.com/trade/order/} + ${increase.smallName} + '_KRW'"
+                                                   th:target="_blank">
+                                                    <div class="card-header mx-4 p-3 text-center">
+                                                        <img style="width: 90px"
+                                                             th:src="@{/img/coin/} + ${increase.smallName} + '.png'">
+                                                    </div>
+                                                    <div class="card-body pt-0 p-3 text-center">
+                                                        <h6 class="mb-0" th:text="${increase.name}"></h6>
+                                                        <h4 class="mb-0 cus-in" th:text="${increase.realkrw}"></h4>
+                                                        <span class="cus-in"
+                                                              th:text="'+' + ${increase.realRate}  + ' %'"></span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-4">
+            <div class="col-12">
+                <div class="card my-6">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-info shadow-primary border-radius-lg pt-4 pb-3">
+                            <h5 class="text-white text-center">하락 변동률 TOP5</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 p-4">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="row cus-row">
+                                    <th:block th:each="decrease : ${decreaseRates}">
+                                        <div class="col-md-6 col-6 cus-m">
+                                            <div class="card">
+                                                <a th:href="@{https://www.bithumb.com/trade/order/} + ${decrease.smallName} + '_KRW'"
+                                                   th:target="_blank">
+                                                    <div class="card-header mx-4 p-3 text-center">
+                                                        <img style="width: 90px"
+                                                             th:src="@{/img/coin/} + ${decrease.smallName} + '.png'">
+                                                    </div>
+                                                    <div class="card-body pt-0 p-3 text-center">
+                                                        <h6 class="text-center mb-0" th:text="${decrease.name}"></h6>
+                                                        <h4 class="mb-0 cus-de" th:text="${decrease.realkrw}"></h4>
+                                                        <span class="cus-de"
+                                                              th:text="${decrease.realRate} + ' %'"></span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--   Core JS Files   -->
+<script src="/js/core/popper.min.js"></script>
+<script src="/js/core/bootstrap.min.js"></script>
+<script src="/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/js/plugins/smooth-scrollbar.min.js"></script>
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+</script>
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/js/material-dashboard.min.js?v=3.0.2"></script>
+</body>
+
+</html>
