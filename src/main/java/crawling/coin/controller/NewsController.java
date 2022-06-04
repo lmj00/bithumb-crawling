@@ -20,7 +20,7 @@ public class NewsController {
     public String news(Model model) throws IOException {
 
         List<News> newsContent = newsParsingService.getNewsContent();
-        model.addAttribute(newsContent);
+        model.addAttribute("newsContent", newsContent);
 
         return "etc/news";
     }
