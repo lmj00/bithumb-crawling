@@ -47,8 +47,13 @@
                                 <tbody>
                                 <tr th:each="coin, i : ${coins}">
                                     <td class="align-middle">
-                                        <span class="text-dark  font-weight-bold"
-                                              th:text="${coin.name}"></span>
+                                        <a th:href="@{https://www.bithumb.com/trade/order/} + ${coin.smallName} + '_KRW'"
+                                           th:target="_blank">
+                                            <img style="width: 20px"
+                                                 th:src="@{/img/coin/} + ${coin.smallName} + '.png'">
+                                            <span class="text-dark  font-weight-bold"
+                                                  th:text="${coin.name}"></span>
+                                        </a>
                                     </td>
                                     <td class="align-middle">
                                         <span class="text-dark  font-weight-bold"
@@ -64,11 +69,11 @@
                                     </td>
                                     <td class="align-middle">
                                         <span class="text-dark  font-weight-bold"
-                                              th:text="${#numbers.formatInteger(coin.tradePrice, 0, 'COMMA')} + '원'"></span>
+                                              th:text="'≈ ' + ${#numbers.formatInteger(coin.tradePrice, 0, 'COMMA')} + ' 원'"></span>
                                     </td>
                                     <td class="align-middle">
                                         <span class="text-dark font-weight-bold"
-                                              th:text="${#numbers.formatInteger(coin.totalPrice, 0, 'COMMA')} + '원'"></span>
+                                              th:text="${#numbers.formatInteger(coin.totalPrice, 0, 'COMMA')} + ' 원'"></span>
                                     </td>
                                     <td class="align-middle" id="upRate">
                                         <span class="font-weight-bold"
@@ -85,24 +90,5 @@
         </div>
     </div>
 </main>
-<!--   Core JS Files   -->
-<script src="/js/core/popper.min.js"></script>
-<script src="/js/core/bootstrap.min.js"></script>
-<script src="/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="/js/plugins/smooth-scrollbar.min.js"></script>
-<script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
-            damping: '0.5'
-        }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-</script>
-<!-- Github buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="/js/material-dashboard.min.js?v=3.0.2"></script>
 </body>
-
 </html>
