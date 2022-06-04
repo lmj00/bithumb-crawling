@@ -33,3 +33,11 @@ table {
 .cus-de {
     color: #4386f9
 }
+
+.cus-wrap {
+    flex-wrap: initial;
+}
+
+.cus-img {
+    max-height: 1.8rem;
+}
