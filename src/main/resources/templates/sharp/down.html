@@ -47,13 +47,13 @@
                                 <tbody>
                                 <tr th:each="coin, i : ${coins}">
                                     <td class="align-middles">
-                          <!--              <a th:href="@{https://www.bithumb.com/trade/order/} + ${coin.smallName} + '_KRW'"
-                                           th:target="_blank">
-                                            <img style="width: 20px"
-                                                 th:src="@{/img/coin/} + ${coin.smallName} + '.png'">
-                                            <span class="text-dark font-weight-bold"
-                                                  th:text="${coin.name}"></span>
-                                        </a>-->
+                                        <!--              <a th:href="@{https://www.bithumb.com/trade/order/} + ${coin.smallName} + '_KRW'"
+                                                         th:target="_blank">
+                                                          <img style="width: 20px"
+                                                               th:src="@{/img/coin/} + ${coin.smallName} + '.png'">
+                                                          <span class="text-dark font-weight-bold"
+                                                                th:text="${coin.name}"></span>
+                                                      </a>-->
                                         <th:block th:if="${coin.name == 'CONUN'}">
                                             <a th:href="@{https://www.bithumb.com/trade/order/} + 'CON_KRW'"
                                                th:target="_blank">
@@ -74,8 +74,14 @@
                                         </th:block>
                                     </td>
                                     <td class="align-middle">
-                                        <span class="text-dark font-weight-bold"
-                                              th:text="${coin.realkrw + ' 원'}"></span>
+                                        <th:block th:if="${#strings.contains(coin.realkrw, '.00')}">
+                                            <span class="text-dark font-weight-bold"
+                                                  th:text="${#strings.arraySplit(coin.realkrw, '.')[0]} + ' 원'"></span>
+                                        </th:block>
+                                        <th:block th:unless="${#strings.contains(coin.realkrw, '.00')}">
+                                            <span class="text-dark font-weight-bold"
+                                                  th:text="${coin.realkrw + ' 원'}"></span>
+                                        </th:block>
                                     </td>
                                     <td>
                                         <th:block th:if="${#strings.startsWith(coin.realPrice, '-')}">
