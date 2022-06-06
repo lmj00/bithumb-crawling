@@ -45,7 +45,14 @@
                                                     </div>
                                                     <div class="card-body pt-0 p-3 text-center">
                                                         <h6 class="mb-0" th:text="${increase.name}"></h6>
-                                                        <h4 class="mb-0 cus-in" th:text="${increase.realkrw}"></h4>
+                                                        <th:block th:if="${#strings.contains(increase.realkrw, '.00')}">
+                                                            <h4 class="mb-0 cus-in"
+                                                                th:text="${#strings.arraySplit(increase.realkrw, '.')[0]}"></h4>
+                                                        </th:block>
+                                                        <th:block
+                                                                th:unless="${#strings.contains(increase.realkrw, '.00')}">
+                                                            <h4 class="mb-0 cus-in" th:text="${increase.realkrw}"></h4>
+                                                        </th:block>
                                                         <span class="cus-in"
                                                               th:text="'+' + ${increase.realRate}  + ' %'"></span>
                                                     </div>
@@ -84,7 +91,14 @@
                                                     </div>
                                                     <div class="card-body pt-0 p-3 text-center">
                                                         <h6 class="text-center mb-0" th:text="${decrease.name}"></h6>
-                                                        <h4 class="mb-0 cus-de" th:text="${decrease.realkrw}"></h4>
+                                                        <th:block th:if="${#strings.contains(decrease.realkrw, '.00')}">
+                                                            <h4 class="mb-0 cus-de"
+                                                                th:text="${#strings.arraySplit(decrease.realkrw, '.')[0]}"></h4>
+                                                        </th:block>
+                                                        <th:block
+                                                                th:unless="${#strings.contains(decrease.realkrw, '.00')}">
+                                                            <h4 class="mb-0 cus-de" th:text="${decrease.realkrw}"></h4>
+                                                        </th:block>
                                                         <span class="cus-de"
                                                               th:text="${decrease.realRate} + ' %'"></span>
                                                     </div>
