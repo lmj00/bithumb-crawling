@@ -5,17 +5,17 @@
 
 <body class="g-sidenav-show  bg-gray-200">
 <aside th:replace="fragments/aside:: aside"/>
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
     <div class="container-fluid py-4">
         <div class="row cus-wrap">
-            <div class="col-12" style="width: 50%">
+            <div class="col-7" style="margin-left: 20%">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
-                                <tr th:each="news : ${newsContent}">
+                                <tr th:each="news : ${boardList}">
                                     <td>
                                         <a th:href="${news.link}" th:target="_blank">
                                             <span class="font-weight-bold" th:text="${news.title}"></span>
@@ -23,36 +23,53 @@
                                     </td>
                                     <td>
                                         <span class="text-secondary text-xs float-lg-end" th:text="${news.date}"></span>
+                                        <span class="text-secondary text-xs float-lg-end"
+                                              th:text="${news.editor} + '|&nbsp;'"></span>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12" style="width: 50%">
-                <div class="card my-4">
-                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    </div>
-                    <div class="card-body px-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
-                                <tr th:each="news : ${newsContent}">
-                                    <td>
-                                        <a th:href="${news.link}" th:target="_blank">
-                                            <span class="font-weight-bold" th:text="${news.title}"></span>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <span class="text-secondary text-xs float-lg-end" th:text="${news.date}"></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <nav>
+                    <ul class="pagination justify-content-center"
+                        th:with="start=${T(java.lang.Math).floor(boardList.number/10) *10 + 1},
+                         last=(${start + 9 < boardList.totalPages ? start + 9 : boardList.totalPages})">
+                        <li class="page-item">
+                            <a th:href="@{/news(page=1)}" class="page-link">
+                                <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                        </li>
 
+                        <li th:class="${boardList.first} ? 'disabled page-item' : 'page-item'">
+                            <a th:href="${boardList.first} ? '#' :@{/news(page=${boardList.number})}"
+                               class="page-link">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+
+                        <li th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == boardList.number + 1} ? 'active page-item' : 'page-item'">
+                            <a th:text="${page}" th:href="@{/news(page=${page})}"
+                               class="page-link"></a>
+                        </li>
+
+                        <li th:class="${boardList.last} ? 'disabled page-item' : 'page-item'">
+                            <a th:href="${boardList.last} ? '#' : @{/news(page=${boardList.number + 2})}"
+                               aria-label="Next" class="page-link">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item">
+                            <a th:href="@{/news(page=${boardList.totalPages})}" aria-label="Last"
+                               class="page-link">
+                                <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </main>
