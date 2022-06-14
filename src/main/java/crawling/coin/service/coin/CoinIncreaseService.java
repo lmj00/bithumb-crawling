@@ -1,4 +1,4 @@
-package crawling.coin.service;
+package crawling.coin.service.coin;
 
 import crawling.coin.domain.Coin;
 import crawling.coin.repository.CoinRepository;
@@ -12,29 +12,30 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class CoinDecreaseService {
+public class CoinIncreaseService {
+
     private final CoinRepository coinRepository;
 
-    List<BigDecimal> decrease = new ArrayList<>();
+    List<BigDecimal> increase = new ArrayList<>();
 
 
     /**
-     * 1분 기준으로 1% 이상 하락한 코인들을 가져옴
-     * @return
+     * 1분 기준으로 1% 이상 상승한 코인들을 가져옴
+     * @return 
      */
-    public List<Coin> findDecrease() {
+    public List<Coin> findIncrease() {
         List<Coin> fiveCoins = coinRepository.fiveMinuteCoin();
         List<Coin> recentCoins = coinRepository.findRecentCoin();
-        decrease.clear();
+        increase.clear();
 
         List<Coin> rankingCoin = new ArrayList<>();
         for (Coin five : fiveCoins) {
             for (Coin recent : recentCoins) {
                 if (five.getName().equals(recent.getName())) {
-                    if (five.getRealkrw().subtract(five.getRealkrw().multiply(BigDecimal.valueOf(0.01))).compareTo(recent.getRealkrw()) > 0) {
+                    if (five.getRealkrw().add(five.getRealkrw().multiply(BigDecimal.valueOf(0.01))).compareTo(recent.getRealkrw()) < 0) {
                         rankingCoin.add(recent);
-                        decrease.add(
-                                (five.getRealkrw().subtract(recent.getRealkrw())
+                        increase.add(
+                                (recent.getRealkrw().subtract(five.getRealkrw())
                                         .divide(five.getRealkrw(), 4, RoundingMode.HALF_UP)).
                                         multiply(BigDecimal.valueOf(100))
                         );
@@ -47,7 +48,7 @@ public class CoinDecreaseService {
         return rankingCoin;
     }
 
-    public List<BigDecimal> rateOfDecrease() {
-        return decrease;
+    public List<BigDecimal> rateOfIncrease() {
+        return increase;
     }
 }

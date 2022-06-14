@@ -1,4 +1,4 @@
-package crawling.coin.service;
+package crawling.coin.service.news;
 
 import crawling.coin.domain.News;
 import crawling.coin.repository.NewsRepository;

@@ -1,4 +1,4 @@
-package crawling.coin.service;
+package crawling.coin.service.coin;
 
 import crawling.coin.domain.Coin;
 import crawling.coin.repository.CoinRepository;
@@ -12,30 +12,29 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class CoinIncreaseService {
-
+public class CoinDecreaseService {
     private final CoinRepository coinRepository;
 
-    List<BigDecimal> increase = new ArrayList<>();
+    List<BigDecimal> decrease = new ArrayList<>();
 
 
     /**
-     * 1분 기준으로 1% 이상 상승한 코인들을 가져옴
-     * @return 
+     * 1분 기준으로 1% 이상 하락한 코인들을 가져옴
+     * @return
      */
-    public List<Coin> findIncrease() {
+    public List<Coin> findDecrease() {
         List<Coin> fiveCoins = coinRepository.fiveMinuteCoin();
         List<Coin> recentCoins = coinRepository.findRecentCoin();
-        increase.clear();
+        decrease.clear();
 
         List<Coin> rankingCoin = new ArrayList<>();
         for (Coin five : fiveCoins) {
             for (Coin recent : recentCoins) {
                 if (five.getName().equals(recent.getName())) {
-                    if (five.getRealkrw().add(five.getRealkrw().multiply(BigDecimal.valueOf(0.01))).compareTo(recent.getRealkrw()) < 0) {
+                    if (five.getRealkrw().subtract(five.getRealkrw().multiply(BigDecimal.valueOf(0.01))).compareTo(recent.getRealkrw()) > 0) {
                         rankingCoin.add(recent);
-                        increase.add(
-                                (recent.getRealkrw().subtract(five.getRealkrw())
+                        decrease.add(
+                                (five.getRealkrw().subtract(recent.getRealkrw())
                                         .divide(five.getRealkrw(), 4, RoundingMode.HALF_UP)).
                                         multiply(BigDecimal.valueOf(100))
                         );
@@ -48,7 +47,7 @@ public class CoinIncreaseService {
         return rankingCoin;
     }
 
-    public List<BigDecimal> rateOfIncrease() {
-        return increase;
+    public List<BigDecimal> rateOfDecrease() {
+        return decrease;
     }
 }

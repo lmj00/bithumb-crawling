@@ -1,6 +1,5 @@
-package crawling.coin.service;
+package crawling.coin.service.coin;
 
-import crawling.coin.repository.CoinRepository;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
